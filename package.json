@@ -1,0 +1,43 @@
+{
+  "name": "percipio-axios-example",
+  "description": "Demonstrates using the percipio-axios library to make a request to the Percipio API",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/martinholden-skillsoft/percipio-axios-example.git"
+  },
+  "author": {
+    "name": "Martin Holden",
+    "email": "12408585+martinholden-skillsoft@users.noreply.github.com"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index.js",
+    "lint": "eslint **/*.js",
+    "preversion": "npm run lint",
+    "postversion": "git push && git push --tags && npm run changelog && git push ",
+    "postinstall": "",
+    "changelog": "rimraf CHANGELOG.md && auto-changelog --template keepachangelog && git add . && git commit . -m changelog && git push"
+  },
+  "dependencies": {
+    "asciitable": "^0.0.7",
+    "axios": "^0.25.0",
+    "consola": "^2.15.3",
+    "dotenv": "^16.0.0",
+    "percipio-axios": "github:martinholden-skillsoft/percipio-axios",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.17.0",
+    "auto-changelog": "^2.3.0",
+    "eslint": "^8.8.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.4.1",
+    "rimraf": "^3.0.2"
+  }
+}
