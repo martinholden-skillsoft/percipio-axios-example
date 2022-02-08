@@ -8,7 +8,7 @@ It also illustrates concepts such as passing a custom Axios Instance during crea
 
 To use this code you will need:
 
-1. A Skillsoft [Percipio](https://www.skillsoft.com/platform-solution/percipio/) Site
+1. A Skillsoft [Percipio](https://www.skillsoft.com/meet-skillsoft-percipio) Site
 1. A [Percipio Service Account](https://documentation.skillsoft.com/en_us/pes/Integration/int_api_rest_authentication.htm#Authorization)
 
 # Configuration
