@@ -2,7 +2,7 @@
 
 Demonstrates using the [Percipio Axios Client](https://github.com/martinholden-skillsoft/percipio-axios) to call a Percipio API method. The example code calls the [Common API getCollections method](https://api.percipio.com/common/api-docs/#/%2Fv1/getCollections).
 
-As the [Percipio Axios Client](https://github.com/martinholden-skillsoft/percipio-axios) is not oublished to NPMJS, it is loaded from the GitHub repo.
+As the [Percipio Axios Client](https://github.com/martinholden-skillsoft/percipio-axios) is not published to NPMJS, it is loaded from the GitHub repo.
 
 It also illustrates concepts such as passing a custom Axios Instance during creation of the client, the example Axios instance is extended with interceptors to add timing data and a correlation id. It also shows how the replacement of placeholders in the resource path work.
 
