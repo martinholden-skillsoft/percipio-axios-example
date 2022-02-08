@@ -1,7 +1,7 @@
 {
   "name": "percipio-axios-example",
   "description": "Demonstrates using the percipio-axios library to make a request to the Percipio API",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "main": "index.js",
   "license": "MIT",
   "repository": {
