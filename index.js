@@ -1,4 +1,4 @@
-const { PercipioAxiosClient } = require('percipio-axios');
+const { PercipioAxiosUserManagementServiceClient } = require('percipio-axios');
 const { Agent: HttpAgent } = require('http');
 const { Agent: HttpsAgent } = require('https');
 const axios = require('axios');
@@ -88,7 +88,7 @@ const getAxiosInstance = () => {
 const getPercipioClient = (config) => {
   return new Promise((resolve, reject) => {
     try {
-      const client = new PercipioAxiosClient(config);
+      const client = new PercipioAxiosUserManagementServiceClient(config);
       resolve(client);
     } catch (error) {
       reject(error);
@@ -109,23 +109,11 @@ getPercipioClient({
   instance: getAxiosInstance(),
 })
   .then((client) => {
-    // This uses the Percipio Common API getCollections method.
-    //
-    // The resource to be used in the request, with placeHolders:
-    //
-    // {orgId} will be replaced by the orgId passed to the PercipioAxiosClient
-    //
-    // {version} will be replaced by the version passed to the PercipioAxiosClient in
-    //
-    // the resourcePlaceholders configuration option.
-    const resource = '/common/{version}/organizations/{orgId}/collections';
+    // This uses the Percipio User Managament API getUsers method.
+    // https://api.percipio.com/user-management/api-docs/#/%2Fv1/getUsers
 
-    // Issue a GET request to the resource, passing in Axios resource configuration options
     client
-      .get({
-        resource,
-        params: {},
-        data: {},
+      .getUsers({
         headers: { 'User-Agent': 'Percipio-Node-SDK' }, // This is an additional custom header
         timeout: 2000, // This is a standard Axios Request Config value
       })
@@ -133,7 +121,7 @@ getPercipioClient({
         consola.log('******** Timing Data ********\n');
         consola.log(asciitable([response.timings]));
         consola.log('********** Results **********\n');
-        consola.log(asciitable(response.data));
+        consola.log(asciitable(Array.isArray(response.data) ? response.data : [response.data]));
       })
       .catch((err) => {
         consola.error(err);
