@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 const { PercipioAxiosUserManagementServiceClient } = require('percipio-axios');
 const { Agent: HttpAgent } = require('http');
 const { Agent: HttpsAgent } = require('https');
@@ -96,6 +97,31 @@ const getPercipioClient = (config) => {
   });
 };
 
+const getUsersPage = ({ client = null, offset = 0, max = 1000 } = {}) => {
+  return client.getUsers({
+    headers: { 'User-Agent': 'Percipio-Node-SDK' }, // This is an additional custom header
+    timeout: 2000, // This is a standard Axios Request Config value
+    params: { offset, max },
+  });
+};
+
+/**
+ *
+ * @param {client, offset, max} - Percipio Client, offset, max
+ * @default {0, 100}
+ * @returns
+ */
+async function* fetchAllUsers({ client = null, max = 1000 } = {}) {
+  let offset = 0 - max;
+  while (true) {
+    offset += max;
+    // eslint-disable-next-line no-await-in-loop
+    const res = await getUsersPage({ client, offset, max });
+    yield res;
+    if (offset + max >= res.headers['x-total-count']) return;
+  }
+}
+
 // ------------------------------------------------------------------------------------
 
 // Create a new Percipio Axios Client demonstrates
@@ -108,24 +134,18 @@ getPercipioClient({
   resourcePlaceholders: { version: 'v1' },
   instance: getAxiosInstance(),
 })
-  .then((client) => {
-    // This uses the Percipio User Managament API getUsers method.
-    // https://api.percipio.com/user-management/api-docs/#/%2Fv1/getUsers
+  .then(async (client) => {
+    const usersPage = fetchAllUsers({ client, max: 5 });
+    let page = 1;
+    for await (const response of usersPage) {
+      consola.log(`Page: ${page} Records: ${response.data.length}`);
+      consola.log('******** Timing Data ********\n');
+      consola.log(asciitable([response.timings]));
+      consola.log('********** Results **********\n');
+      consola.log(asciitable(Array.isArray(response.data) ? response.data : [response.data]));
 
-    client
-      .getUsers({
-        headers: { 'User-Agent': 'Percipio-Node-SDK' }, // This is an additional custom header
-        timeout: 2000, // This is a standard Axios Request Config value
-      })
-      .then((response) => {
-        consola.log('******** Timing Data ********\n');
-        consola.log(asciitable([response.timings]));
-        consola.log('********** Results **********\n');
-        consola.log(asciitable(Array.isArray(response.data) ? response.data : [response.data]));
-      })
-      .catch((err) => {
-        consola.error(err);
-      });
+      page += 1;
+    }
   })
   .catch((err) => {
     consola.error(err);

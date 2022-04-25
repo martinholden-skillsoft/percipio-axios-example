@@ -14,7 +14,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./index.js",
+    "start:client": "node ./index.client.js",
+    "start:sdkclient": "node ./index.sdkclient.js",
+    "start:sdkclientpaging": "node ./index.sdkclient.paging.js",
     "lint": "eslint **/*.js",
     "preversion": "npm run lint",
     "postversion": "git push && git push --tags && npm run changelog && git push ",
@@ -23,21 +25,21 @@
   },
   "dependencies": {
     "asciitable": "^0.0.7",
-    "axios": "^0.25.0",
+    "axios": "^0.26.1",
     "consola": "^2.15.3",
     "dotenv": "^16.0.0",
-    "percipio-axios": "github:martinholden-skillsoft/percipio-axios#sdk",
+    "percipio-axios": "github:martinholden-skillsoft/percipio-axios",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.17.0",
     "auto-changelog": "^2.3.0",
-    "eslint": "^8.8.0",
+    "eslint": "^8.14.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.25.2",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "^2.4.1",
+    "prettier": "^2.6.2",
     "rimraf": "^3.0.2"
   }
 }
